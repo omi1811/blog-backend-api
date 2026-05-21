@@ -25,6 +25,7 @@ class Post(Base):
     author_id = Column(Integer, ForeignKey('users.id'))
     
     author = relationship('User', back_populates='posts')
+    comment = relationship('Comment', back_populates='post', cascade="all, delete-orphan")
 
 class Comment(Base):
     __tablename__ = 'comments'
@@ -37,4 +38,3 @@ class Comment(Base):
     
     post = relationship('Post', back_populates='comments')
     author = relationship('User', back_populates='comments')
-    delete = relationship('Post', back_populates='comments', cascade="all, delete-orphan")
