@@ -13,6 +13,7 @@ class User(Base):
     password_hash = Column(String(128), nullable=False)
     
     posts = relationship('Post', back_populates='author')
+    comments = relationship('Comment', back_populates='author')
 
 class Post(Base):
     __tablename__ = 'posts'
@@ -36,4 +37,4 @@ class Comment(Base):
     
     post = relationship('Post', back_populates='comments')
     author = relationship('User', back_populates='comments')
-
+    delete = relationship('Post', back_populates='comments', cascade="all, delete-orphan")
